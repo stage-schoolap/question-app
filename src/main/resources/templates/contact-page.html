@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact us</title>
+    <link href="../../../../resources/static/style.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="contact-page.html">Contact us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="contact">
+        <h1>Contact us</h1>
+        <p>Proud of what we had learned and of what we're learning here. If you want something else, contact us !</p>
+
+        <form action="Contact-page" method="post">
+            <label for="name">Name :</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="lastname">Postname :</label>
+            <input type="text" id="lastname" name="lastname" required>
+
+            <label for="firstname">Firstname :</label>
+            <input type="text" id="firstname" name="firstname" required>
+
+            <label for="phone">Phone number :</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 StageSchoolap. All copyright.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
