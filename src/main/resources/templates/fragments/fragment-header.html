@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="header">
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{${@webUrls.home}}">App02</a>
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                        aria-controls="navbarScroll" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+                        style="-bs-scroll-height: 100px;">
+                        <li class="nav-item"><a class="nav-link active"
+                                                aria-current="page" th:href="@{${@webUrls.home}}"
+                                                th:text="#{form.home}">Home</a></li>
+
+                        <li class="nav-item dropdown"><a
+                                class="nav-link dropdown-toggle" href="#"
+                                id="navbarScrollingDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                th:text="#{form.file}"></a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item"
+                                       th:href="@{${@webUrls.users_view}}"
+                                       th:text="#{form.users}"></a></li>
+                                <li><a class="dropdown-item"
+                                       th:href="@{${@webUrls.people_view}}"
+                                       th:text="#{form.people}"></a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item"
+                                       th:href="@{${@webUrls.countries_view}}"
+                                       th:text="#{form.countries}"></a></li>
+                                <li><a class="dropdown-item"
+                                       th:href="@{${@webUrls.cities_view}}"
+                                       th:text="#{form.cities}"></a></li>
+                                <li><a class="dropdown-item"
+                                       th:href="@{${@webUrls.person_types_view}}"
+                                       th:text="#{form.person_types}"></a></li>
+                            </ul></li>
+                    </ul>
+                    <div class="text-light">
+                        <a class="link-light" style="text-decoration: none;"
+                           th:href="@{?locale=en}" th:text="#{form.english}"></a> | <a
+                            class="link-light" style="text-decoration: none;"
+                            th:href="@{?locale=fr}" th:text="#{form.french}"></a>
+                        |
+                        <a class="link-light" style="text-decoration: none;"
+                           th:href="@{${@webUrls.logout}}" th:text="#{form.logout}"></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</div>
+
+</html>

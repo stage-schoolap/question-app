@@ -31,20 +31,6 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-<<<<<<< Updated upstream
-=======
-    implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
-    implementation("org.springframework.boot:spring-boot-starter-tomcat")
-    implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-configuration-processor")
-    implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.apache.commons:commons-lang3:3.12.0")
-    implementation("org.simpleflatmapper:sfm-springjdbc:8.2.3")
-
-
-
->>>>>>> Stashed changes
 }
 
 tasks.withType<Test> {

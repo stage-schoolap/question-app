@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="msg-validation">
+
+    <div th:if="${#fields.hasErrors('*')}" th:remove="tag">
+        <br/>
+        <div class="alert alert-danger alert-dismissible fade show"
+             role="alert">
+            <strong th:text="#{form.error}">Error</strong>
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <ul th:if="${#fields.hasErrors('*')}">
+                <li th:each="err : ${#fields.errors('*')}" th:if="${err} != ''"
+                    th:text="${err}"></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div th:if="${myMessage != null}">
+        <div class="alert alert-success alert-dismissible fade show"
+             role="alert">
+            [[${myMessage}]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div th:if="${myError != null}">
+        <div class="alert alert-danger alert-dismissible fade show"
+             role="alert">
+            [[${myError}]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+</th:block>
+
+</html>
+
