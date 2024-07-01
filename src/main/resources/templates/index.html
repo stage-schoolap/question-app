@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="row float-right">
+        <p>
+            <a th:href="@{?locale=en}" th:text="#{form.english}"></a> | <a
+                th:href="@{?locale=fr}" th:text="#{form.french}"></a>
+        </p>
+    </div>
+    <div class="row">
+        <h1 th:text="#{message.welcome(${myName}, ${myApp})}"></h1>
+    </div>
+    <hr/>
+    <div class="row text-success">
+        <h2 th:text="#{form.group} + ': ' + ${myGroup}"></h2>
+    </div>
+    <div class="row text-primary">
+        <h3 th:text="#{form.members}">Members</h3>
+    </div>
+    <div class="row table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{form.firstName}">firstName</th>
+                <th scope="col" th:text="#{form.name}">Name</th>
+                <th scope="col" th:text="#{form.lastName}">lastName</th>
+                <th scope="col" th:text="#{form.gender}">gender</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John</td>
+                <td>Mwamba</td>
+                <td>Kabongo</td>
+                <td>M</td>
+            </tr>
+            <tr>
+                <td>Josephine</td>
+                <td>Kapinga</td>
+                <td>Kabeya</td>
+                <td>F</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
