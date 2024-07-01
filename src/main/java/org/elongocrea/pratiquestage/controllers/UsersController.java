@@ -60,19 +60,23 @@ public class UsersController {
 
     @GetMapping
     public String getRecords(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
-                             @RequestParam(value = "active", required = false, defaultValue = "false") boolean is_active,
-                             @RequestParam(value = "block", required = false, defaultValue = "false") boolean is_block,
-                             @RequestParam(value = "connected", required = false, defaultValue = "false") boolean is_connected,
+                             @RequestParam(value = "active", required = false, defaultValue = "false") boolean active,
+                             @RequestParam(value = "block", required = false, defaultValue = "false") boolean block,
+                             @RequestParam(value = "connected", required = false, defaultValue = "false") boolean connected,
                              HttpServletRequest request, Model model) {
         try {
-            if (request.getParameter("is_active") == null) { // Handle Unchecked checkbox not submitted
-                is_active = false;
+            if (request.getParameter("active") == null) { // Handle Unchecked checkbox not submitted
+                active = false;
+            }
+            if (request.getParameter("block") == null) { // Handle Unchecked icon not submitted
+                block = false;
             }
 
-            final List<Users> data = service.get(is_active, is_block, is_connected, keyword);
+            final List<Users> data = service.get(active, block, connected, keyword);
 
             model.addAttribute("myData", data);
-            model.addAttribute("myCheck", is_active);
+            model.addAttribute("myCheck", active);
+            model.addAttribute("blocked", block);
             model.addAttribute("myKeyword", keyword);
 
         } catch (Exception ex) {
