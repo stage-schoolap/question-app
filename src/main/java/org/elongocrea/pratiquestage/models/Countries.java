@@ -29,11 +29,13 @@ public class Countries implements Serializable {
     private String name_fr;
 
     @NotEmpty
+    @Column(nullable = true)
     @Size(min = 1, max = 45)
     @Builder.Default
     private String name_en = null;
 
     @NotEmpty
+    @Column(nullable = true)
     @Size(min = 1, max = 6)
     @Builder.Default
     private String prefix = null;

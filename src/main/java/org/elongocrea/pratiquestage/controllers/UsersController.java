@@ -75,7 +75,7 @@ public class UsersController {
             final List<Users> data = service.get(active, block, connected, keyword);
 
             model.addAttribute("myData", data);
-            //model.addAttribute("myCheck", active);
+            model.addAttribute("myCheck", active);
             model.addAttribute("blocked", block);
             model.addAttribute("myKeyword", keyword);
 

@@ -1,5 +1,6 @@
 package org.elongocrea.pratiquestage.config;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,11 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean(name = "localeResolver")
     public LocaleResolver localeResolver() { // Identify which locale is used
         return new SessionLocaleResolver();
+    }
+
+    @Bean
+    public LayoutDialect layoutDialect(){
+        return new LayoutDialect();
     }
 
 }
