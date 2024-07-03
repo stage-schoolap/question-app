@@ -43,10 +43,10 @@
                             class="form-control form-control-sm" th:field="*{status}"
                             th:errorclass="has-error" list="state"/>
                         <datalist id="state">
-                            <option value="">pending</option>
-                            <option value="">success</option>
-                            <option value="">active</option>
-                            <option value="">disabled</option>
+                            <option value="pending">pending</option>
+                            <option value="success">success</option>
+                            <option value="active">active</option>
+                            <option value="disabled">disabled</option>
                         </datalist>
                     </div>
                     <div class="form-group">
@@ -55,17 +55,17 @@
                             class="form-control form-control-sm" th:field="*{phone}"
                             th:errorclass="has-error" />
                     </div>
-                    <div class="form-group">
-                        <label for="google_id" th:text="#{form.google_id}"></label> <input
-                            id="google_id" type="text"
-                            class="form-control form-control-sm" th:field="*{google_id}"
-                            th:errorclass="has-error" />
-                    </div>
-                    <div class="form-check">
-                        <input id="actif" type="checkbox" class="form-check-input"
-                               th:field="*{is_active}" /><label class="form-check-label"
-                                                            for="actif" th:text="#{form.active}"></label>
-                    </div>
+                    <!--    <div class="form-group">
+                            <label for="google_id" th:text="#{form.google_id}"></label> <input
+                                id="google_id" type="text"
+                                class="form-control form-control-sm" th:field="*{google_id}"
+                                th:errorclass="has-error" />
+                        </div> -->
+                    <!--    <div class="form-check">
+                            <input id="actif" type="checkbox" class="form-check-input"
+                                   th:field="*{is_active}" /><label class="form-check-label"
+                                                                for="actif" th:text="#{form.active}"></label>
+                        </div> -->
                     <br/>
                     <div class="form-group">
                         <button id="btnSave" type="submit" class="btn btn-primary btn-sm"

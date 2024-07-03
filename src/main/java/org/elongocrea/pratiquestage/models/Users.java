@@ -41,20 +41,21 @@ public class Users implements Serializable {
     @Size(min = 1, max = 45)
     private String password;
 
-    @NotEmpty
+
     @Builder.Default
     private boolean is_active = false;
 
-    @NotEmpty
+
     @Builder.Default
     private boolean is_block = false;
 
-    @NotEmpty
+
     @Builder.Default
     private boolean is_connected = false;
 
-    @NotEmpty
+
     @Builder.Default
+    @Column(nullable = true)
     private Timestamp last_connected = null;
 
     @Size(min = 1, max = 45)
@@ -64,7 +65,7 @@ public class Users implements Serializable {
     @Size(min = 1, max = 20)
     private String phone;
 
-    @NotEmpty
+
     @Size(min = 1, max = 45)
     private String google_id;
 }

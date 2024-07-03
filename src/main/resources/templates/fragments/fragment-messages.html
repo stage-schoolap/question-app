@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:fragment="msg-validation">
+<th:block th:fragment="msg-validation" style="position: absolute; top: 0;">
 
     <div th:if="${#fields.hasErrors('*')}" th:remove="tag">
         <br/>

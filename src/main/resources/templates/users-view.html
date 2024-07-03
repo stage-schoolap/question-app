@@ -26,13 +26,13 @@
                 <form id="myFilterForm" th:action="@{${@webUrls.users_view}}"
                       enctype="multipart/form-data" method="get">
                     <div class="input-group d-flex align-items-center">
-                        <div class="form-check form-check-inline form-switch">
+                    <!--    <div class="form-check form-check-inline form-switch">
                             <input id="chkActif" class="form-check-input" type="checkbox"
                                    name="active" th:checked="${myCheck}"
                                    onclick="submit()" /><label
                                 class="form-check-label" for="chkActif"
                                 th:text="#{form.active}"></label>
-                        </div>
+                        </div> -->
                         <input id="keyword" type="text" class="form-control"
                                name="keyword" th:value="${keyword}"
                                th:placeholder="#{form.search}" />
@@ -60,8 +60,8 @@
                 </thead>
                 <tbody th:if="${myData != null && !myData.isEmpty()}">
                 <tr th:each="item : ${myData}">
-                    <td scope="row" th:text="${item.id}"></td>
-                    <td scope="row" th:text="${item.username}"></td>
+                    <td th:scope="row" th:text="${item.id}"></td>
+                    <td th:scope="row" th:text="${item.username}"></td>
                     <td><div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox"
                                disabled="disabled" th:checked="${item.is_active}" />

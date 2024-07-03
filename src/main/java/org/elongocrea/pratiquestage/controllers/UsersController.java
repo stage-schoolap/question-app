@@ -75,7 +75,7 @@ public class UsersController {
             final List<Users> data = service.get(active, block, connected, keyword);
 
             model.addAttribute("myData", data);
-            model.addAttribute("myCheck", active);
+            //model.addAttribute("myCheck", active);
             model.addAttribute("blocked", block);
             model.addAttribute("myKeyword", keyword);
 
@@ -107,7 +107,7 @@ public class UsersController {
                 redAttr.addFlashAttribute("myMessage",
                         msgSrc.getMessage("message.taskSuccessfullyCompleted", null, locale));
 
-                return "redirect:/users?is_active=true";
+                return "redirect:/users";
             }
 
         } catch (Exception ex) {
