@@ -1,5 +1,6 @@
 package org.elongocrea.pratiquestage.utils.core;
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.elongocrea.pratiquestage.utils.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class AppUtils {
 
-    @Autowired
-    private MessageSource msgSrc;
+    private final MessageSource msgSrc;
 
     public String getFilterKeyword(String keyword) {
         return StringUtils.isEmpty(keyword) ? "%%" : "%" + keyword + "%";

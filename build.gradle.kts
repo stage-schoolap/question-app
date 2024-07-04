@@ -36,6 +36,7 @@ dependencies {
     implementation("org.simpleflatmapper:sfm-springjdbc:8.2.3")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
 
 
 }

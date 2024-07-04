@@ -29,43 +29,31 @@ public class Users implements Serializable {
     private int id;
 
     @NotEmpty
-    @Size(min = 1, max = 45)
     private String username;
 
     @NotEmpty
     @Email
-    @Size(min = 1, max = 50)
     private String email;
 
     @NotEmpty
-    @Size(min = 1, max = 45)
     private String password;
 
+    @Column(name = "is_active")
+    private boolean isActive = false;
 
-    @Builder.Default
-    private boolean is_active = false;
+    @Column(name = "is_block")
+    private boolean isBlock = false;
 
+    @Column(name = "is_connected")
+    private boolean isConnected = false;
 
-    @Builder.Default
-    private boolean is_block = false;
-
-
-    @Builder.Default
-    private boolean is_connected = false;
-
-
-    @Builder.Default
-    @Column(nullable = true)
-    private Timestamp last_connected = null;
-
-    @Size(min = 1, max = 45)
+    @Column(name = "last_connected")
+    private Timestamp lastConnected = null;
     private String status;
 
     @NotEmpty
-    @Size(min = 1, max = 20)
     private String phone;
 
-
-    @Size(min = 1, max = 45)
-    private String google_id;
+    @Column(name = "google_id")
+    private String googleId;
 }

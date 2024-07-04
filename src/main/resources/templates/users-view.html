@@ -19,14 +19,14 @@
 
             <div class="col-md-6 mt-2">
                 <a id="btnNew" class="btn btn-primary btn-sm"
-                   th:href="@{${@webUrls.users_form}(id=0)}"
+                   th:href="@{|/users/get/form/0|}"
                    th:text="#{form.new}"></a>
             </div>
             <div class="col-md-6 mt-2">
-                <form id="myFilterForm" th:action="@{${@webUrls.users_view}}"
+                <form id="myFilterForm" th:action="@{/users}"
                       enctype="multipart/form-data" method="get">
                     <div class="input-group d-flex align-items-center">
-                       <div class="form-check form-check-inline form-switch">
+                        <div class="form-check form-check-inline form-switch">
                             <input id="chkActif" class="form-check-input" type="checkbox"
                                    name="active" th:checked="${myCheck}"
                                    onclick="submit()" /><label
@@ -34,7 +34,7 @@
                                 th:text="#{form.active}"></label>
                         </div>
                         <input id="keyword" type="text" class="form-control"
-                               name="keyword" th:value="${keyword}"
+                               name="keyword" th:value="${myKeyword}"
                                th:placeholder="#{form.search}" />
                         <div class="input-group-append">
                             <button class="btn btn-secondary" type="submit">
@@ -64,29 +64,30 @@
                     <td th:scope="row" th:text="${item.id}"></td>
                     <td th:scope="row" th:text="${item.username}"></td>
                     <td th:scope="row" th:text="${item.email}"></td>
-                    <td><div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox"
-                               disabled="disabled" th:checked="${item.is_active}" />
-                    </div></td>
-                    <td><a
-                            th:href="@{${@webUrls.users_form} (id=${item.id})}"
-                            class="btn btn-secondary btn-sm"><i
-                            class="fa fa-pen-to-square"></i> </a>
-                        <a
-                            th:href="@{${@webUrls.users_delete} (id=${item.id})}"
-                            th:itemId="${item.id}" class="btn btn-danger btn-sm btn-delete">
-                            <i class="fa fa-trash" aria-hidden="true"></i></a>
-                        <a
-                            th:itemId="${item.id}" class="btn btn-default btn-block">
-                            <span class="cadenas-icon" th:classappend="${user.blocked ? 'locked' : ''}"
-                                  th:onclick="'toggleBlocked(\'' + ${user.id} + '\')'"></span>
-                        <i class="fa fa-lock" aria-hidden="true" ></i>
-                    </a></td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox"
+                                   disabled="disabled" th:checked="${item.isActive}" />
+                        </div>
+                    </td>
+                    <td>
+                        <a th:href="@{|/users/get/form/${item.id}|}" class="btn btn-secondary btn-sm">
+                            <i class="fa fa-pen-to-square"></i>
+                        </a>
+                        <a th:href="@{|/users/delete/${item.id}|}" class="btn btn-danger btn-sm btn-delete">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                        <a th:data-user-id="${item.id}" class="btn btn-default btn-block">
+                            <span class="cadenas-icon" th:classappend="${item.isBlock ? 'locked' : ''}"
+                                  th:onclick="'toggleBlocked(' + ${item.id} + ')'" ></span>
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
                 <tbody th:if="${myData == null || myData.isEmpty()}">
                 <tr>
-                    <td colspan="4" th:text="#{error.noDataFound}"></td>
+                    <td colspan="5" th:text="#{error.noDataFound}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -95,22 +96,19 @@
 
     </div>
 
-    <th:block layout-fragment="app-js">
+    <th:block layout:fragment="app-js">
         <script type="text/javascript" th:inline="javascript">
             /*<![CDATA[*/
             $(document).ready(function() {
-
-                function submit(e) {
+                $('#myFilterForm').submit(function(e) {
                     e.preventDefault();
-                $('#myFilterForm').submit();
+                    $(this).submit();
+                });
 
+                window.toggleBlocked = function(userId) {
+                    const row = document.querySelector('[data-user-id="' + userId + '"]');
+                    row.classList.toggle('blocked-row');
                 };
-                function toggleBlocked(userId) {
-
-        const row = document.querySelector('[data-user-id="' + userId + '"]');
-        row.classList.toggle('blocked-row');
-                }
-
             });
             /*]]>*/
         </script>

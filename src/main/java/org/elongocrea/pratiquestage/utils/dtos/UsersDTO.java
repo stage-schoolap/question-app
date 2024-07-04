@@ -26,57 +26,41 @@ public class UsersDTO implements Serializable {
     private int id;
 
     @NotEmpty(message = "{form.username}")
-    @Size(min = 1, max = 45, message = "{form.username}")
+    @Size(message = "{form.username}")
     private String username;
 
     @NotEmpty(message = "{form.email}")
     @Email(message = "{form.email}")
-    @Size(min = 1, max = 45, message = "{form.email}")
+    @Size(message = "{form.email}")
     private String email;
 
     @NotEmpty(message = "{form.password}")
-    @Size(min = 1, max = 45, message = "{form.password}")
+    @Size(message = "{form.password}")
     private String password;
-
-
-    @Setter
-    @Builder.Default
-    private boolean is_active = false;
-
-    public boolean getIs_active() {
-        return is_active;
-    }
-
-
-    @Setter
-    @Builder.Default
-    private boolean is_block = false;
-
-    public boolean getIs_block() {
-        return is_block;
-    }
-
-
-    @Setter
-    @Builder.Default
-    private boolean is_connected = false;
-
-    public boolean getIs_connected() {
-        return is_block;
-    }
-
-
-    @Builder.Default
-    @Column(nullable = true)
-    private LocalDateTime last_connected = null;
+    private boolean isActive = false;
+    private boolean isBlock = false;
+    private boolean isConnected = false;
+    private LocalDateTime lastConnected = null;
 
     @NotEmpty(message = "{form.status}")
-    @Size(min = 1, max = 45, message = "{form.status}")
+    @Size(message = "{form.status}")
     private String status;
 
     @NotEmpty(message = "{form.phone}")
-    @Size(min = 1, max = 45, message = "{form.phone}")
-    private String phone;
+    @Size(message = "{form.phone}")
 
-    private String google_id;
+    private String phone;
+    private String googleId;
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public boolean getIsBlock() {
+        return isBlock;
+    }
+
+    public boolean getIsConnected() {
+        return isConnected;
+    }
 }

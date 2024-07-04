@@ -1,18 +1,17 @@
 package org.elongocrea.pratiquestage.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.elongocrea.pratiquestage.models.Users;
 import org.elongocrea.pratiquestage.services.UsersService;
-import org.elongocrea.pratiquestage.utils.core.AppUtils;
 import org.elongocrea.pratiquestage.utils.core.ViewUtils;
 import org.elongocrea.pratiquestage.utils.dtos.UsersDTO;
 import org.elongocrea.pratiquestage.utils.mappers.UsersMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,124 +21,91 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UsersController {
 
-    @Autowired
-    private UsersService service;
+    private final UsersService service;
+    private final UsersMapper mapper;
+    private final LocaleResolver resolver;
+    private final MessageSource msgSrc;
+    private final ViewUtils viewUtils;
 
-    @Autowired
-    private UsersMapper mapper;
-
-    @Autowired
-    private LocaleResolver resolver;
-
-    @Autowired
-    private MessageSource msgSrc;
-
-    @Autowired
-    private ViewUtils viewUtils;
-
-    @Autowired
-    private AppUtils appUtils;
-
-    //
     @GetMapping("/get/form/{id}")
     public String getForm(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-        try {
-            final UsersDTO row = (id != 0) ? mapper.mapToDTO(service.getById(id)) : new UsersDTO();
-
-            model.addAttribute("myTitle", this.getFormTitle(row, request));
-            model.addAttribute("myDto", row);
-
-        } catch (Exception ex) {
-            model.addAttribute("myError", ex.getLocalizedMessage());
-        }
-
+        UsersDTO row = id != 0 ? mapper.mapToDTO(service.getById(id)) : new UsersDTO();
+        model.addAttribute("myTitle", getFormTitle(row, request));
+        model.addAttribute("myDto", row);
         return viewUtils.users_form;
     }
 
     @GetMapping
-    public String getRecords(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
-                             @RequestParam(value = "active", required = false, defaultValue = "false") boolean active,
-                             @RequestParam(value = "block", required = false, defaultValue = "false") boolean block,
-                             @RequestParam(value = "connected", required = false, defaultValue = "false") boolean connected,
-                             HttpServletRequest request, Model model) {
-        try {
-            if (request.getParameter("active") == null) { // Handle Unchecked checkbox not submitted
-                active = false;
-            }
-            if (request.getParameter("block") == null) { // Handle Unchecked icon not submitted
-                block = false;
-            }
-
-            final List<Users> data = service.get(active, block, connected, keyword);
-
-            model.addAttribute("myData", data);
-            model.addAttribute("myCheck", active);
-            model.addAttribute("blocked", block);
-            model.addAttribute("myKeyword", keyword);
-
-        } catch (Exception ex) {
-            model.addAttribute("myError", ex.getLocalizedMessage());
-        }
-
+    public String index(
+        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+        @RequestParam(value = "active", required = false, defaultValue = "false") boolean active,
+        @RequestParam(value = "block", required = false, defaultValue = "false") boolean block,
+        @RequestParam(value = "connected", required = false, defaultValue = "false") boolean connected,
+        HttpServletRequest request, Model model
+    ) {
+        List<Users> data = service.get(active, block, connected, keyword);
+        model.addAttribute("myData", data);
+        model.addAttribute("myCheck", active);
+        model.addAttribute("blocked", block);
+        model.addAttribute("myKeyword", keyword);
         return viewUtils.users_view;
-
     }
 
     @PostMapping
-    public String save(@Valid @ModelAttribute("myDto") UsersDTO dto, BindingResult result, Model model,
-                       RedirectAttributes redAttr, HttpServletRequest request) {
-        final Locale locale = resolver.resolveLocale(request);
-
-        //Process
+    public String save(
+            @Validated @ModelAttribute("myDto") UsersDTO dto,
+            BindingResult result,
+            Model model,
+            RedirectAttributes redAttr,
+            HttpServletRequest request
+    ) {
+        Locale locale = resolver.resolveLocale(request);
         try {
-            final long id = dto != null ? dto.getId() : 0;
+            long id = dto != null ? dto.getId() : 0;
             service.save(dto, result, locale);
-            if (id == 0) {
-                model.addAttribute("myTitle", this.getFormTitle(new UsersDTO(), request));
-                model.addAttribute("myDto", new UsersDTO());
-                model.addAttribute("myMessage", msgSrc.getMessage("message.taskSuccessfullyCompleted", null, locale));
-
-                return viewUtils.users_form;
-
-            } else {
-                redAttr.addFlashAttribute("myMessage",
-                        msgSrc.getMessage("message.taskSuccessfullyCompleted", null, locale));
-
-                return "redirect:/users";
-            }
-
+            return handleSaveSuccess(model, redAttr, request, locale, id);
         } catch (Exception ex) {
-            model.addAttribute("myTitle", this.getFormTitle(dto, request));
-
-            result.reject("myError", appUtils.getErrorMsg(ex, locale));
-
-            return viewUtils.users_form;
+            return handleSaveError(dto, result, model, request, ex, locale);
         }
     }
-
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-        final Locale locale = resolver.resolveLocale(request);
         try {
-            service.delete(id, locale);
-
+            service.delete(id, resolver.resolveLocale(request));
         } catch (Exception ex) {
             model.addAttribute("myError", ex.getLocalizedMessage());
         }
-
         return "redirect:/users";
     }
 
-    // Helper
+    // Helper methods
     private String getFormTitle(UsersDTO entity, HttpServletRequest request) {
-        final Locale locale = resolver.resolveLocale(request);
-        final int id = entity != null ? entity.getId() : 0;
-
+        Locale locale = resolver.resolveLocale(request);
+        int id = entity != null ? entity.getId() : 0;
         return msgSrc.getMessage("form.users", null, locale)
-                .concat(" / " + (id != 0 ? msgSrc.getMessage("form.edit", null, locale).concat("# " +  id)
+                .concat(" / " + (id != 0 ? msgSrc.getMessage("form.edit", null, locale).concat("# " + id)
                         : msgSrc.getMessage("form.new", null, locale)));
+    }
+
+    private String handleSaveSuccess(Model model, RedirectAttributes redAttr, HttpServletRequest request, Locale locale, long id) {
+        if (id == 0) {
+            model.addAttribute("myTitle", getFormTitle(new UsersDTO(), request));
+            model.addAttribute("myDto", new UsersDTO());
+            model.addAttribute("myMessage", msgSrc.getMessage("message.taskSuccessfullyCompleted", null, locale));
+            return viewUtils.users_form;
+        } else {
+            redAttr.addFlashAttribute("myMessage", msgSrc.getMessage("message.taskSuccessfullyCompleted", null, locale));
+            return "redirect:/users";
+        }
+    }
+
+    private String handleSaveError(UsersDTO dto, BindingResult result, Model model, HttpServletRequest request, Exception ex, Locale locale) {
+        model.addAttribute("myTitle", getFormTitle(dto, request));
+        result.reject("myError", ex.getLocalizedMessage());
+        return viewUtils.users_form;
     }
 }

@@ -5,12 +5,21 @@ import org.elongocrea.pratiquestage.utils.core.AppUtils;
 import org.elongocrea.pratiquestage.utils.dtos.UsersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 @Component
+@Mapper
 public class UsersMapper {
 
     @Autowired
     private AppUtils appUtils;
+
+    // UsersMapper INSTANCE = Mappers.getMapper(UsersMapper.class);
+
+    // UsersDTO mapToDTO(Users user);
+//
+    // Users mapToEntity(UsersDTO dto);
 
     public UsersDTO mapToDTO(Users entity) {
         return UsersDTO.builder()
@@ -18,13 +27,13 @@ public class UsersMapper {
                 .username(entity.getUsername())
                 .email(entity.getEmail())
                 .password(entity.getPassword())
-                .is_active(entity.is_active())
-                .is_block(entity.is_block())
-                .is_connected(entity.is_connected())
-                .last_connected(appUtils.getLocalDateTime(entity.getLast_connected()))
+                .isActive(entity.isActive())
+                .isBlock(entity.isBlock())
+                .isConnected(entity.isConnected())
+                .lastConnected(appUtils.getLocalDateTime(entity.getLastConnected()))
                 .status(entity.getStatus())
                 .phone(entity.getPhone())
-                .google_id(entity.getGoogle_id())
+                .googleId(entity.getGoogleId())
                 .build();
     }
 
@@ -34,13 +43,13 @@ public class UsersMapper {
                 .username(dto.getUsername())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
-                .is_active(dto.getIs_active())
-                .is_block(dto.getIs_block())
-                .is_connected(dto.getIs_connected())
-                .last_connected(appUtils.getSQLTimestamp(dto.getLast_connected()))
+                .isActive(dto.getIsActive())
+                .isBlock(dto.getIsBlock())
+                .isConnected(dto.getIsConnected())
+                .lastConnected(appUtils.getSQLTimestamp(dto.getLastConnected()))
                 .status(dto.getStatus())
                 .phone(dto.getPhone())
-                .google_id(dto.getGoogle_id())
+                .googleId(dto.getGoogleId())
                 .build();
     }
 }

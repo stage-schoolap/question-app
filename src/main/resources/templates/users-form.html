@@ -63,7 +63,7 @@
                         </div> -->
                         <div class="form-check">
                             <input id="actif" type="checkbox" class="form-check-input"
-                                   th:field="*{is_active}" /><label class="form-check-label"
+                                   th:field="*{isActive}" /><label class="form-check-label"
                                                                 for="actif" th:text="#{form.active}"></label>
                         </div>
                     <br/>
@@ -71,7 +71,7 @@
                         <button id="btnSave" type="submit" class="btn btn-primary btn-sm"
                                 th:text="#{form.save}"></button>
                         <a id="btnCancel" type="button" class="btn btn-danger btn-sm"
-                           th:href="@{${@webUrls.users_view}(is_active=true)}"
+                           th:href="@{${@webUrls.users_view}(isActive=true)}"
                            th:text="#{form.cancel}"></a>
                     </div>
 
