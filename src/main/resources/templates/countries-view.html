@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<head>
+</head>
+<body>
+
+<th:block layout:fragment="page-content">
+
+    <div class="container-fluid">
+
+        <h3 class="text-dark my-3" th:text="#{form.countries}"></h3>
+
+        <div class="row my-3">
+
+            <div class="col-md-6 mt-2">
+                <a id="btnNew" class="btn btn-primary btn-sm"
+                   th:href="@{${@webUrls.countries_form}(id=0)}"
+                   th:text="#{form.new}"></a>
+            </div>
+            <div class="col-md-6 mt-2">
+                <form id="myFilterForm" th:action="@{${@webUrls.countries_view}}"
+                      enctype="multipart/form-data" method="get">
+                    <div class="input-group d-flex align-items-center">
+                        <input id="keyword" type="text" class="form-control"
+                               name="keyword" th:value="${keyword}"
+                               th:placeholder="#{form.search}" />
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" th:text="#{form.id}"></th>
+                    <th scope="col" th:text="#{form.name_fr}"></th>
+                    <th scope="col" th:text="#{form.name_en}"></th>
+                    <th scope="col" th:text="#{form.prefix}"></th>
+                    <th scope="col" th:text="#{form.actions}"></th>
+                </tr>
+                </thead>
+                <tbody th:if="${myData != null && !myData.isEmpty()}">
+                <tr th:each="item : ${myData}">
+                    <td scope="row" th:text="${item.id}"></td>
+                    <td scope="row" th:text="${item.name_fr}"></td>
+                    <td scope="row" th:text="${item.name_en}"></td>
+                    <td scope="row" th:text="${item.prefix}"></td>
+                    <td><a
+                            th:href="@{${@webUrls.countries_form} (id=${item.id})}"
+                            class="btn btn-secondary btn-sm"><i
+                            class="fa fa-pen-to-square"></i> </a> <a
+                            th:href="@{${@webUrls.countries_delete} (id=${item.id})}"
+                            th:itemId="${item.id}" class="btn btn-danger btn-sm btn-delete">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a></td>
+                </tr>
+                </tbody>
+                <tbody th:if="${myData == null || myData.isEmpty()}">
+                <tr>
+                    <td colspan="4" th:text="#{error.noDataFound}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <th:block layout-fragment="app-js">
+        <script type="text/javascript" th:inline="javascript">
+            /*<![CDATA[*/
+            $(document).ready(function() {
+
+                function submit(e) {
+                    e.preventDefault();
+                $('#myFilterForm').submit();
+
+                };
+
+
+            });
+            /*]]>*/
+        </script>
+    </th:block>
+
+</th:block>
+
+</body>
+</html>
