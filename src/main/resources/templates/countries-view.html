@@ -17,11 +17,11 @@
 
             <div class="col-md-6 mt-2">
                 <a id="btnNew" class="btn btn-primary btn-sm"
-                   th:href="@{${@webUrls.countries_form}(id=0)}"
+                   th:href="@{|/countries/get/form/0|}"
                    th:text="#{form.new}"></a>
             </div>
             <div class="col-md-6 mt-2">
-                <form id="myFilterForm" th:action="@{${@webUrls.countries_view}}"
+                <form id="myFilterForm" th:action="@{/countries}"
                       enctype="multipart/form-data" method="get">
                     <div class="input-group d-flex align-items-center">
                         <input id="keyword" type="text" class="form-control"
@@ -52,15 +52,15 @@
                 </thead>
                 <tbody th:if="${myData != null && !myData.isEmpty()}">
                 <tr th:each="item : ${myData}">
-                    <td scope="row" th:text="${item.id}"></td>
-                    <td scope="row" th:text="${item.name_fr}"></td>
-                    <td scope="row" th:text="${item.name_en}"></td>
-                    <td scope="row" th:text="${item.prefix}"></td>
+                    <th scope="row" th:text="${item.id}"></th>
+                    <th scope="row" th:text="${item.name_fr}"></th>
+                    <th scope="row" th:text="${item.name_en}"></th>
+                    <th scope="row" th:text="${item.prefix}"></th>
                     <td><a
-                            th:href="@{${@webUrls.countries_form} (id=${item.id})}"
+                            th:href="@{|/countries/get/form/${item.id}|}"
                             class="btn btn-secondary btn-sm"><i
                             class="fa fa-pen-to-square"></i> </a> <a
-                            th:href="@{${@webUrls.countries_delete} (id=${item.id})}"
+                            th:href="@{|/countries/delete/${item.id}|}"
                             th:itemId="${item.id}" class="btn btn-danger btn-sm btn-delete">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a></td>
@@ -79,18 +79,7 @@
 
     <th:block layout-fragment="app-js">
         <script type="text/javascript" th:inline="javascript">
-            /*<![CDATA[*/
-            $(document).ready(function() {
 
-                function submit(e) {
-                    e.preventDefault();
-                $('#myFilterForm').submit();
-
-                };
-
-
-            });
-            /*]]>*/
         </script>
     </th:block>
 

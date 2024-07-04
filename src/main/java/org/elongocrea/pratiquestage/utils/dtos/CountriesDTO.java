@@ -25,16 +25,17 @@ public class CountriesDTO implements Serializable {
     private int id;
 
     @Size(min = 1, max = 45)
-    private String name_fr;
+    private String nameFr;
 
     @NotEmpty
     @Column(nullable = true)
     @Size(min = 1, max = 45)
     @Builder.Default
-    private String name_en = null;
+    private String nameEn = null;
 
     @NotEmpty
     @Column(nullable = true)
-    @Size(min = 1, max = 6)
+    @Size(message = "{form.prefix}")
+    @Builder.Default
     private String prefix = null;
 }

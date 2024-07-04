@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@Data
 public class Countries implements Serializable {
 
     @Serial
@@ -26,13 +27,14 @@ public class Countries implements Serializable {
 
     @NotEmpty
     @Size(min = 1, max = 45)
-    private String name_fr;
+    @Column(name = "name_fr")
+    private String nameFr;
 
     @NotEmpty
-    @Column(nullable = true)
+    @Column(nullable = true, name = "name_en")
     @Size(min = 1, max = 45)
     @Builder.Default
-    private String name_en = null;
+    private String nameEn = null;
 
     @NotEmpty
     @Column(nullable = true)

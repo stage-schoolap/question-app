@@ -39,16 +39,21 @@ public class Users implements Serializable {
     private String password;
 
     @Column(name = "is_active")
+    @Builder.Default
     private boolean isActive = false;
 
     @Column(name = "is_block")
+    @Builder.Default
     private boolean isBlock = false;
 
     @Column(name = "is_connected")
+    @Builder.Default
     private boolean isConnected = false;
 
     @Column(name = "last_connected")
+    @Builder.Default
     private Timestamp lastConnected = null;
+
     private String status;
 
     @NotEmpty

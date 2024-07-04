@@ -37,9 +37,17 @@ public class UsersDTO implements Serializable {
     @NotEmpty(message = "{form.password}")
     @Size(message = "{form.password}")
     private String password;
+
+    @Builder.Default
     private boolean isActive = false;
+
+    @Builder.Default
     private boolean isBlock = false;
+
+    @Builder.Default
     private boolean isConnected = false;
+
+    @Builder.Default
     private LocalDateTime lastConnected = null;
 
     @NotEmpty(message = "{form.status}")
@@ -48,8 +56,8 @@ public class UsersDTO implements Serializable {
 
     @NotEmpty(message = "{form.phone}")
     @Size(message = "{form.phone}")
-
     private String phone;
+
     private String googleId;
 
     public boolean getIsActive() {

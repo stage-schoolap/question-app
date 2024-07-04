@@ -11,9 +11,11 @@ public interface CountriesService {
 
     Countries save(CountriesDTO dto, BindingResult result, Locale locale);
 
-    List<Countries> delete(int id, Locale locale);
+    void delete(int id, Locale locale);
 
     Countries getById(int id);
 
-    List<Countries> get(String keyword);
+    List<Countries> get(String nameFr, String keyword);
+
+    List<Countries> getAll();
 }
